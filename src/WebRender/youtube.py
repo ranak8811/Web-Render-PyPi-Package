@@ -34,5 +34,4 @@ def render_youtube_video(url: str, width: int = 760, height: int = 440):
         return 'success'
 
     except Exception as e:
-        logger.error(f'Caught Exception: {e}')
-        raise InvalidURLException
+        raise e
