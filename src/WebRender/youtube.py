@@ -3,35 +3,31 @@ from WebRender.logger import logger
 import re
 from IPython.display import HTML, display
 
+
 def render_youtube_video(url: str, width: int = 760, height: int = 440):
-    try:
-        regex = r"(?:v=|\/)([0-9A-Za-z_-]{11})"
-        match = re.search(regex, url)
-        
-        if not match:
-            raise InvalidURLException('Provided URL is invalid', url)
-        
-        video_id = match.group(1)
+    regex = r"(?:v=|\/)([0-9A-Za-z_-]{11})"
+    match = re.search(regex, url)
 
-        embed_url = f"https://www.youtube-nocookie.com/embed/{video_id}"
+    if not match:
+        raise InvalidURLException('Provided URL is invalid', url=url)
 
+    video_id = match.group(1)
 
-        iframe = f"""
-        <iframe width="{width}" height="{height}" 
-        src="{embed_url}" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen>
-        </iframe>
-        """
+    embed_url = f"https://www.youtube-nocookie.com/embed/{video_id}"
 
-        display(HTML(iframe))
+    iframe = f"""
+    <iframe width="{width}" height="{height}"
+    src="{embed_url}"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross--origin"
+    allowfullscreen>
+    </iframe>
+    """
 
-        logger.info("Video rendered successfully")
+    display(HTML(iframe))
 
-        return 'success'
+    logger.info("Video rendered successfully")
 
-    except Exception as e:
-        raise e
+    return 'success'
