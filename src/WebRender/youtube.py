@@ -13,7 +13,7 @@ def render_youtube_video(url: str, width: int = 760, height: int = 440):
 
     video_id = match.group(1)
 
-    embed_url = f"https://www.youtube-nocookie.com/embed/{video_id}"
+    embed_url = f"https://www.youtube.com/embed/{video_id}"
 
     iframe = f"""
     <iframe width="{width}" height="{height}"
@@ -21,7 +21,7 @@ def render_youtube_video(url: str, width: int = 760, height: int = 440):
     title="YouTube video player"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    referrerpolicy="strict-origin-when-cross--origin"
+    referrerpolicy="strict-origin-when-cross-origin"
     allowfullscreen>
     </iframe>
     """
