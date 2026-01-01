@@ -2,11 +2,7 @@ from IPython import display
 import urllib.request
 from WebRender.custom_execution import InvalidURLException
 from WebRender.logger import logger
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
-import os
+
 
 def is_valid_url(URL: str) -> bool:
     try:
@@ -17,28 +13,14 @@ def is_valid_url(URL: str) -> bool:
     except:
         return False
 
-def render_site(URL: str, width: int = 1280, height: int = 720) -> str:
+def render_site(URL: str, width: str = '100%', height: str = '600') -> str:
+
     try:
         if is_valid_url(URL):
-            chrome_options = Options()
-            chrome_options.add_argument("--headless")
-            chrome_options.add_argument(f"--window-size={width},{height}")
-            
-            driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
-            
-            driver.get(URL)
-            
-            screenshot_path = "screenshot.png"
-            driver.save_screenshot(screenshot_path)
-            
-            driver.quit()
-            
-            display.display(display.Image(filename=screenshot_path))
-            os.remove(screenshot_path)
-            
+            response = display.IFrame(src=URL, width=width, height=height)
+            display.display(response)
             return 'success'
         else:
             raise InvalidURLException
     except Exception as e:
-        logger.error(f"An error occurred: {e}")
         raise e
