@@ -1,3 +1,5 @@
 py-youtube==1.1.7
 ensure==1.0.2
 mkdocs-material
+selenium==4.21.0
+webdriver-manager==4.0.1
